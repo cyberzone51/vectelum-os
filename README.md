@@ -18,8 +18,11 @@ VECTELUM OS is an open-source, browser-based management platform for local AI, p
 
 It is an independent derivative of [Project NOMAD](https://github.com/Crosstalk-Solutions/project-nomad) by Crosstalk Solutions and contributors, not a new operating-system kernel or a complete Linux distribution.
 
+**New to VECTELUM OS? [Start here: Getting Started Guide →](GETTING-STARTED.md)** — install and launch the backend, download AI models, configure the Knowledge Base, and prepare offline content.
+
 ## Contents
 
+- [Getting started — first-time setup](GETTING-STARTED.md)
 - [Project status](#project-status)
 - [VECTELUM NETWORK](#vectelum-network)
 - [How it works](#how-it-works)
@@ -289,6 +292,7 @@ Dependency audits during the development build reported unresolved vulnerabiliti
 | [install/](install/) | Inherited installation assets and VECTELUM Compose override |
 | [vectelum-launcher/](vectelum-launcher/) | Standalone local application launcher |
 | [Dockerfile](Dockerfile) | Multi-stage application image build |
+| [GETTING-STARTED.md](GETTING-STARTED.md) | Step-by-step first-time setup and offline workflow |
 | [VECTELUM.md](VECTELUM.md) | Developer-preview status and runtime notes |
 | [UPSTREAM-README.md](UPSTREAM-README.md) | Original upstream documentation |
 
