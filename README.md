@@ -57,14 +57,52 @@ The verified deployment used existing upstream-compatible MySQL, Redis, data dir
 
 One proposed local-first platform, six device concepts.
 
-| Device | Purpose | Development stage |
-|---|---|---|
-| **BASECAMP** | Portable field station with prepared maps, documents and optional AI | First planned product; optional solar and drone kit |
-| **RANGER** | Compact expedition computer for research, navigation and field notes | Exploratory; solar panel and drone are optional, not included |
-| **SCOUT** | Wearable interface to a separate local compute host | Exploratory; drone not included |
-| **ONE** | Personal home AI server and household knowledge hub | Future concept |
-| **X** | Personal AI workstation for local models, documents and creative work | Future concept |
-| **NODE** | Local network appliance for service discovery and device coordination | Future concept; optional compatible radio links |
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/basecamp-render.webp" width="420" alt="BASECAMP — AI-generated product concept"/>
+      <h3>BASECAMP</h3>
+      <p>Portable field station with prepared maps, documents and optional AI</p>
+      <p><sub>First planned product; optional solar and drone kit</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/ranger-render.webp" width="420" alt="RANGER — AI-generated product concept"/>
+      <h3>RANGER</h3>
+      <p>Compact expedition computer for research, navigation and field notes</p>
+      <p><sub>Exploratory; solar panel and drone are optional, not included</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/scout-render.webp" width="420" alt="SCOUT — AI-generated product concept"/>
+      <h3>SCOUT</h3>
+      <p>Wearable interface to a separate local compute host</p>
+      <p><sub>Exploratory; drone not included</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/vectelum-one.webp" width="420" alt="ONE — AI-generated product concept"/>
+      <h3>ONE</h3>
+      <p>Personal home AI server and household knowledge hub</p>
+      <p><sub>Future concept</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/vectelum-x.webp" width="420" alt="X — AI-generated product concept"/>
+      <h3>X</h3>
+      <p>Personal AI workstation for local models, documents and creative work</p>
+      <p><sub>Future concept</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/images/products/vectelum-node.webp" width="420" alt="NODE — AI-generated product concept"/>
+      <h3>NODE</h3>
+      <p>Local network appliance for service discovery and device coordination</p>
+      <p><sub>Future concept; optional compatible radio links</sub></p>
+    </td>
+  </tr>
+</table>
+
+*AI-generated concept visualizations from the VECTELUM NETWORK landing page, not photographs of functional hardware.*
 
 The proposed product architecture has four layers:
 
