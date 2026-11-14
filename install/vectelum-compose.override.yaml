@@ -2,7 +2,7 @@
 # Retains the existing service names, data mounts, credentials and port mappings.
 services:
   admin:
-    image: ${VECTELUM_IMAGE:-vectelum-os:08914d5}
+    image: ${VECTELUM_IMAGE:-vectelum-os:56350b3}
     pull_policy: never
   updater:
     profiles: [upstream-update]
