@@ -31,7 +31,7 @@ const FadingImage = ({  alt = "Fading image", className = "" }) => {
       isVisible ? 'opacity-100' : 'opacity-0'
     }`}>
       <img
-        src="/nomad-primary.svg"
+        src="/vectelum-os.svg"
         alt={alt}
         className={`w-64 h-64 object-contain ${className}`}
       />

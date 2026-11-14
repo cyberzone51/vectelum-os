@@ -102,7 +102,7 @@ export default function LinkTileModal({
       <div className="space-y-4 text-sm">
         <p className="text-text-muted">
           Add a shortcut to something you already run, on this machine or anywhere else on your
-          network. NOMAD does not manage it, it just puts a button on your dashboard.
+          network. VECTELUM OS does not manage it, it just puts a button on your dashboard.
         </p>
 
         <Input
@@ -177,7 +177,7 @@ export default function LinkTileModal({
           </div>
           <p className="mt-1.5 text-xs text-text-muted">
             Links stay outlined rather than filled whichever color you pick, so they
-            are distinguishable from apps NOMAD manages.
+            are distinguishable from apps VECTELUM OS manages.
           </p>
         </div>
       </div>

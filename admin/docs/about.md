@@ -1,3 +1,9 @@
+# About VECTELUM OS
+
+VECTELUM OS is an independent developer preview of a browser-based local command center for offline knowledge, AI and self-hosted applications. It is derived from Project NOMAD by Crosstalk Solutions and contributors under Apache-2.0. No affiliation or endorsement is claimed.
+
+## Upstream project history
+
 # About Project NOMAD
 
 Project NOMAD ("NOMAD" for short) is a project started in 2025 by Chris Sherwood of [Crosstalk Solutions, LLC](https://crosstalksolutions.com). The goal of the project is not to create just another utility for storing offline resources, but rather to allow users to run their own ultimate "survival computer". The name started as a backronym, Node for Offline Maps, Archives, and Data, but these days we just call it NOMAD.

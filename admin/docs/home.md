@@ -1,10 +1,12 @@
-# Welcome to Project NOMAD
+# Welcome to VECTELUM OS
+
+> Adapted from the upstream Project NOMAD documentation. Upstream screenshots, installation scripts, benchmarks and core updates may still refer to Project NOMAD. Do not install upstream core updates over this developer preview without review.
 
 Your personal offline knowledge server is ready to use.
 
-## What is NOMAD?
+## What is VECTELUM OS?
 
-**NOMAD** is an offline-first knowledge and education server. It's your personal server for accessing knowledge, education, and AI assistance — even when you have no internet connection.
+**VECTELUM OS** is an offline-first knowledge and education server. It's your personal server for accessing knowledge, education, and AI assistance — even when you have no internet connection.
 
 Think of it as having Wikipedia, Khan Academy, an AI assistant, and offline maps all in one place, running on hardware you control.
 
@@ -46,7 +48,7 @@ Run a System Benchmark to see how your hardware performs and compare your NOMAD 
 
 ## Getting Started
 
-**New to NOMAD?** Use the Easy Setup wizard to configure your server and download content collections.
+**New to VECTELUM OS?** Use the Easy Setup wizard to configure your server and download content collections.
 
 **[Run Easy Setup →](/easy-setup)**
 
@@ -72,7 +74,7 @@ Or explore the **[Getting Started Guide](/docs/getting-started)** for a walkthro
 
 ## Keeping Your Server Updated
 
-NOMAD works best when kept up to date while you have internet access. This ensures you have the latest:
+VECTELUM OS works best when kept up to date while you have internet access. This ensures you have the latest:
 - Software features and bug fixes
 - Wikipedia and reference content
 - Educational materials
@@ -80,6 +82,6 @@ NOMAD works best when kept up to date while you have internet access. This ensur
 
 When you go offline, you'll have everything you need — the last synced versions of all your content.
 
-You can update on demand, or turn on **automatic updates** so NOMAD keeps its software, apps, and content current on its own while you have internet. See the **[Updates guide](/docs/updates)** for how it works.
+You can update on demand, or turn on **automatic updates** so VECTELUM OS keeps its software, apps, and content current on its own while you have internet. See the **[Updates guide](/docs/updates)** for how it works.
 
 **[Check for Updates →](/settings/update)**

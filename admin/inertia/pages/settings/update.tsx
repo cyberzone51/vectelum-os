@@ -239,7 +239,7 @@ export default function SystemUpdatePage(props: { system: Props }) {
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-desert-green mb-2">System Update</h1>
             <p className="text-desert-stone-dark">
-              Keep your Project NOMAD instance up to date with the latest features and
+              Upstream Project NOMAD updates are not VECTELUM OS releases. Review compatibility before installing any core update, which may replace the VECTELUM branding. Stay informed about upstream features and
               improvements.
             </p>
           </div>
@@ -287,8 +287,8 @@ export default function SystemUpdatePage(props: { system: Props }) {
                   </h2>
                   <p className="text-desert-stone-dark mb-6">
                     {versionInfo.updateAvailable
-                      ? `A new version (${versionInfo.latestVersion}) is available for your Project NOMAD instance.`
-                      : 'Your system is running the latest version!'}
+                      ? `A new version (${versionInfo.latestVersion}) is available from the upstream Project NOMAD project.`
+                      : 'No newer upstream version was detected.'}
                   </p>
                 </>
               )}

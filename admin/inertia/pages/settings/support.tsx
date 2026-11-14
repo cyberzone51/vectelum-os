@@ -5,12 +5,12 @@ import SettingsLayout from '~/layouts/SettingsLayout'
 export default function SupportPage() {
   return (
     <SettingsLayout>
-      <Head title="Support the Project | Project NOMAD" />
+      <Head title="Support and attribution | VECTELUM OS" />
       <div className="xl:pl-72 w-full">
         <main className="px-12 py-6 max-w-4xl">
           <h1 className="text-4xl font-semibold mb-4">Support the Project</h1>
           <p className="text-text-muted mb-10 text-lg">
-            Project NOMAD is 100% free and open source — no subscriptions, no paywalls, no catch.
+            The upstream Project NOMAD is 100% free and open source — no subscriptions, no paywalls, no catch.
             If you'd like to help keep the project going, here are a few ways to show your support.
           </p>
 

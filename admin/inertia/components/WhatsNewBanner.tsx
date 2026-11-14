@@ -21,7 +21,7 @@ const WHATS_NEW = {
     'Creator Packs - install curated video packs from your favorite creators and watch them fully offline.',
     'Medication Reference - offline FDA drug-label lookup for quick, reliable medication information.',
     'Benchmark Score v2 - a rebuilt scoring model, with live telemetry while the test runs and your score revealed at the end.',
-    'NOMAD.md - give your AI assistant standing instructions it follows in every conversation.',
+    'AI instructions (NOMAD.md) - give your AI assistant standing instructions it follows in every conversation.',
     'Knowledge Base collections - group what the assistant searches by subject, so answers stay on topic.',
   ],
 }

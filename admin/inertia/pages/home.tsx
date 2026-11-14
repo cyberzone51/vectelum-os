@@ -61,7 +61,7 @@ const SYSTEM_ITEMS = [
     to: '/easy-setup',
     target: '',
     description:
-      'Not sure where to start? Use the setup wizard to quickly configure your NOMAD!',
+      'Not sure where to start? Use the setup wizard to quickly configure your VECTELUM OS!',
     icon: <IconBolt size={48} />,
     installed: true,
     displayOrder: 50,
@@ -81,7 +81,7 @@ const SYSTEM_ITEMS = [
     label: 'Docs',
     to: '/docs/home',
     target: '',
-    description: 'Read Project NOMAD manuals and guides',
+    description: 'Read VECTELUM OS manuals and guides',
     icon: <IconHelp size={48} />,
     installed: true,
     displayOrder: 52,
@@ -91,7 +91,7 @@ const SYSTEM_ITEMS = [
     label: 'Settings',
     to: '/settings/system',
     target: '',
-    description: 'Configure your NOMAD settings',
+    description: 'Configure your VECTELUM OS settings',
     icon: <IconSettings size={48} />,
     installed: true,
     displayOrder: 53,
@@ -190,7 +190,7 @@ export default function Home(props: {
       })
     })
 
-  // User-added link tiles: shortcuts to things NOMAD does not manage.
+  // User-added link tiles: shortcuts to things VECTELUM OS does not manage.
   props.system.services
     .filter((service) => service.is_link_tile && service.custom_url)
     .forEach((service) => {
@@ -230,7 +230,7 @@ export default function Home(props: {
         updateInfo?.updateAvailable && (
           <div className='flex justify-center items-center p-4 w-full'>
             <Alert
-              title="An update is available for Project NOMAD!"
+              title="An upstream update is available. Review compatibility before installing."
               type="info-inverted"
               variant="solid"
               className="w-full"
@@ -291,7 +291,7 @@ export default function Home(props: {
               {isLinkTile && (
                 <span
                   className={`absolute top-2 left-2 ${tileColor.marker}`}
-                  title="A shortcut you added. NOMAD does not manage this."
+                  title="A shortcut you added. VECTELUM OS does not manage this."
                 >
                   <IconExternalLink size={16} />
                 </span>

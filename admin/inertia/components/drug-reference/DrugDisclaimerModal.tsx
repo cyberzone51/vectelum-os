@@ -76,7 +76,7 @@ export default function DrugDisclaimerModal({ open, onAcknowledge }: { open: boo
                 </li>
               </ul>
               <p className="text-xs text-text-muted">
-                Data is from openFDA (U.S. FDA, public domain). NOMAD is not affiliated with or endorsed by the FDA.
+                Data is from openFDA (U.S. FDA, public domain). VECTELUM OS is not affiliated with or endorsed by the FDA.
               </p>
             </div>
 

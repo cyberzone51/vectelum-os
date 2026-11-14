@@ -793,7 +793,7 @@ export class SystemService {
     const isEnabled = (v: any) => v === true || v === 'true'
 
     const lines: string[] = [
-      'Project NOMAD Debug Info',
+      'VECTELUM OS Debug Info',
       '========================',
       `App Version: ${appVersion}`,
       `Environment: ${environment}`,

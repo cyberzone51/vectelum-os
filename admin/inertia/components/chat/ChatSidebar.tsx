@@ -114,11 +114,11 @@ export default function ChatSidebar({
         )}
       </div>
       <div className="p-4 flex flex-col items-center justify-center gap-y-2">
-        <img src="/nomad-primary.svg" alt="Project NOMAD Logo" className="h-28 w-28 mb-6 object-contain" />
+        <img src="/vectelum-os.svg" alt="VECTELUM OS Logo" className="h-28 w-28 mb-6 object-contain" />
         <StyledButton
           onClick={() => {
             // /chat is served by the admin app itself, so navigate in place rather than
-            // spawning a window. Popping out broke anyone running NOMAD as an installed
+            // spawning a window. Popping out broke anyone running VECTELUM OS as an installed
             // web app or in kiosk mode, who then had a stray window to get back out of.
             router.visit(isInModal ? '/chat' : '/home')
           }}
@@ -160,7 +160,7 @@ export default function ChatSidebar({
           size="sm"
           fullWidth
         >
-          NOMAD.md
+          AI instructions
         </StyledButton>
         {sessions.length > 0 && (
           <StyledButton

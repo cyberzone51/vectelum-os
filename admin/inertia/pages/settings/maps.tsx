@@ -74,7 +74,7 @@ export default function MapsManager(props: {
       addNotification({
         type: 'error',
         message:
-          'Could not download the base map. Please connect this NOMAD to the internet and try again.',
+          'Could not download the base map. Please connect this VECTELUM OS to the internet and try again.',
       })
     },
   })
@@ -327,7 +327,7 @@ export default function MapsManager(props: {
           {props.maps.baseAssetsExist && !props.maps.worldBasemapExists && (
             <Alert
               title="World base map not downloaded"
-              message="The low-zoom world base map (~15 MB) hasn't been downloaded yet, so the map appears blank outside any regions you've downloaded. Connect this NOMAD to the internet and download it once for offline use."
+              message="The low-zoom world base map (~15 MB) hasn't been downloaded yet, so the map appears blank outside any regions you've downloaded. Connect this VECTELUM OS to the internet and download it once for offline use."
               type="warning"
               variant="solid"
               className="my-4"

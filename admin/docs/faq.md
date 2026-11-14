@@ -1,27 +1,29 @@
 # Frequently Asked Questions
 
+> Adapted from the upstream Project NOMAD documentation. Upstream screenshots, installation scripts, benchmarks and core updates may still refer to Project NOMAD. Do not install upstream core updates over this developer preview without review.
+
 ## General Questions
 
-### What is NOMAD?
-NOMAD is a personal server that gives you access to knowledge, education, and AI assistance without requiring an internet connection. It runs on your own hardware, keeping your data private and accessible anytime.
+### What is VECTELUM OS?
+VECTELUM OS is a personal server that gives you access to knowledge, education, and AI assistance without requiring an internet connection. It runs on your own hardware, keeping your data private and accessible anytime.
 
-### Do I need internet to use NOMAD?
+### Do I need internet to use VECTELUM OS?
 No — that's the whole point. Once your content is downloaded, everything works offline. You only need internet to:
 - Download new content
 - Update the software
 - Sync the latest versions of Wikipedia, maps, etc.
 
-### What operating system does NOMAD need?
+### What operating system does VECTELUM OS need?
 Debian-based Linux. **Ubuntu 26.04 LTS is what we recommend and test on** for new installs.
 
 Ubuntu 24.04 LTS and Debian 12 are also supported, so there is no need to reinstall if you are already on one of those. Windows users can follow the [WSL2 guide](https://www.projectnomad.us/install/wsl2), which is community-supported.
 
-macOS and non-Debian distributions like Fedora or Arch are not officially supported. NOMAD does not need a desktop environment, so Ubuntu Server is a fine choice if you are comfortable at the terminal.
+macOS and non-Debian distributions like Fedora or Arch are not officially supported. VECTELUM OS does not need a desktop environment, so Ubuntu Server is a fine choice if you are comfortable at the terminal.
 
 For a full walkthrough including the Ubuntu install itself, see the [Installation Guide](https://www.projectnomad.us/install).
 
 ### What hardware do I need?
-NOMAD is designed for capable hardware, especially if you want to use the AI features. Recommended:
+VECTELUM OS is designed for capable hardware, especially if you want to use the AI features. Recommended:
 - Modern multi-core CPU (AMD Ryzen 7 with Radeon graphics is the community sweet spot)
 - 16GB+ RAM (32GB+ for best AI performance)
 - SSD storage (size depends on content — 500GB minimum, 1TB+ recommended)
@@ -49,7 +51,7 @@ RAM, which is why a CPU-only box needs more of it.
 
 ### How much storage do I need?
 
-**To install NOMAD itself: about 5GB, so leave 10GB free.** That covers the
+**To install VECTELUM OS itself: about 5GB, so leave 10GB free.** That covers the
 Command Center and its database, before any content. Adding the AI Assistant
 brings the total to roughly 25GB, because Ollama and a general-purpose model are
 both large.
@@ -87,7 +89,7 @@ Content is as current as when it was last downloaded. Wikipedia snapshots are ty
 ### Can I add my own files?
 Yes — with the Knowledge Base. Upload PDFs, text files, and other documents to the [Knowledge Base](/knowledge-base), and the AI can reference them when answering your questions. This uses semantic search to find relevant information from your uploaded files.
 
-For Kiwix content, NOMAD uses standard ZIM files. For educational content, Kolibri uses its own channel format.
+For Kiwix content, VECTELUM OS uses standard ZIM files. For educational content, Kolibri uses its own channel format.
 
 ### What are curated collection tiers?
 When selecting content in the Easy Setup wizard or Content Explorer, collections are organized into three tiers:
@@ -116,7 +118,7 @@ The AI must be installed first — enable it during Easy Setup or install it fro
 
 You can also remove documents from the Knowledge Base when they're no longer needed.
 
-NOMAD documentation is automatically added to the Knowledge Base when the AI Assistant is installed.
+VECTELUM OS documentation is automatically added to the Knowledge Base when the AI Assistant is installed.
 
 ### What is the System Benchmark?
 The System Benchmark tests your hardware performance and generates a NOMAD Score — a weighted composite of CPU, memory, disk, and AI performance. You can create a Builder Tag (a NOMAD-themed identity like "Tactical-Llama-1234") and share your results with the [community leaderboard](https://benchmark.projectnomad.us).
@@ -169,19 +171,19 @@ Local AI requires significant computing power. To improve speed:
 
 ### How do I enable GPU acceleration for AI?
 
-NOMAD automatically detects NVIDIA GPUs when the NVIDIA Container Toolkit is installed on the host system. To set up GPU acceleration:
+VECTELUM OS automatically detects NVIDIA GPUs when the NVIDIA Container Toolkit is installed on the host system. To set up GPU acceleration:
 
 1. **Install an NVIDIA GPU** in your server (if not already present)
 2. **Install the NVIDIA Container Toolkit** on the host — follow the [official installation guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 3. **Reinstall the AI Assistant** — Go to [Supply Depot](/supply-depot), find AI Assistant, and click **Force Reinstall**
 
-NOMAD will detect the GPU during installation and configure the AI to use it automatically. You'll see "NVIDIA container runtime detected" in the installation progress.
+VECTELUM OS will detect the GPU during installation and configure the AI to use it automatically. You'll see "NVIDIA container runtime detected" in the installation progress.
 
 **Tip:** Run a [System Benchmark](/settings/benchmark) before and after to see the difference. GPU-accelerated systems typically see 100+ tokens per second vs 10-15 on CPU only.
 
 ### I added/changed my GPU but AI is still slow
 
-When you add or swap a GPU, NOMAD needs to reconfigure the AI container to use it:
+When you add or swap a GPU, VECTELUM OS needs to reconfigure the AI container to use it:
 
 1. Make sure the **NVIDIA Container Toolkit** is installed on the host
 2. Go to **[Supply Depot](/supply-depot)**
@@ -191,7 +193,7 @@ Force Reinstall recreates the AI container with GPU support enabled. Without thi
 
 ### I see a "GPU passthrough not working" warning
 
-NOMAD checks whether your GPU is actually accessible inside the AI container. If a GPU is detected on the host but isn't working inside the container, you'll see a warning banner on the System Information and AI Settings pages. Click the **"Fix: Reinstall AI Assistant"** button to recreate the container with proper GPU access. This preserves your downloaded AI models.
+VECTELUM OS checks whether your GPU is actually accessible inside the AI container. If a GPU is detected on the host but isn't working inside the container, you'll see a warning banner on the System Information and AI Settings pages. Click the **"Fix: Reinstall AI Assistant"** button to recreate the container with proper GPU access. This preserves your downloaded AI models.
 
 ### AI Chat not available
 
@@ -253,7 +255,7 @@ Kolibri passwords are managed separately:
 
 ## Updates and Maintenance
 
-### How do I update NOMAD?
+### How do I update VECTELUM OS?
 1. Go to **Settings → Check for Updates**
 2. If an update is available, click to install
 3. The system will download updates and restart automatically
@@ -266,8 +268,8 @@ Yes, while you have internet access. Updates include:
 - Security improvements
 - Performance enhancements
 
-### Can NOMAD update itself automatically?
-Yes. NOMAD can keep its software, its installed apps, and its content current on its own. Automatic updates are **opt-in and off by default** — you turn on what you want from **Settings → Updates** (and, for apps, a per-app toggle in the Supply Depot). They only run inside a time window you choose, after safety checks, and never apply major version jumps automatically. See the **[Updates guide](/docs/updates)** for a full walkthrough.
+### Can VECTELUM OS update itself automatically?
+Yes. VECTELUM OS can keep its software, its installed apps, and its content current on its own. Automatic updates are **opt-in and off by default** — you turn on what you want from **Settings → Updates** (and, for apps, a per-app toggle in the Supply Depot). They only run inside a time window you choose, after safety checks, and never apply major version jumps automatically. See the **[Updates guide](/docs/updates)** for a full walkthrough.
 
 ### How do I update content (Wikipedia, etc.)?
 Content updates are separate from software updates:
@@ -287,7 +289,7 @@ The system is designed to recover gracefully. If an update fails:
 
 ### Command-Line Maintenance
 
-For advanced troubleshooting or when you can't access the web interface, NOMAD includes helper scripts in `/opt/project-nomad`:
+For advanced troubleshooting or when you can't access the web interface, VECTELUM OS includes helper scripts in `/opt/project-nomad`:
 
 **Start all services:**
 ```bash
@@ -305,7 +307,7 @@ sudo bash /opt/project-nomad/update_nomad.sh
 ```
 *Note: This updates the Command Center only, not individual apps. Update apps through the web interface.*
 
-**Uninstall NOMAD:**
+**Uninstall VECTELUM OS:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Crosstalk-Solutions/project-nomad/refs/heads/main/install/uninstall_nomad.sh -o uninstall_nomad.sh
 sudo bash uninstall_nomad.sh
@@ -317,10 +319,10 @@ sudo bash uninstall_nomad.sh
 ## Privacy and Security
 
 ### Is my data private?
-Yes. NOMAD runs entirely on your hardware. Your searches, AI conversations, and usage data never leave your server.
+Yes. VECTELUM OS runs entirely on your hardware. Your searches, AI conversations, and usage data never leave your server.
 
 ### Can others access my server?
-By default, NOMAD is accessible on your local network. Anyone on the same network can access it. For public networks, consider additional security measures.
+By default, VECTELUM OS is accessible on your local network. Anyone on the same network can access it. For public networks, consider additional security measures.
 
 ### Does the AI send data anywhere?
 No. The AI runs completely locally. Your conversations are not sent to any external service. The AI chat is built into the Command Center — there's no separate service to configure.
@@ -330,13 +332,13 @@ No. The AI runs completely locally. Your conversations are not sent to any exter
 ## Getting More Help
 
 ### The AI can help
-Try asking a question in [AI Chat](/chat). The local AI can answer questions about many topics, including technical troubleshooting. If you've uploaded NOMAD documentation to the Knowledge Base, it can also help with NOMAD-specific questions.
+Try asking a question in [AI Chat](/chat). The local AI can answer questions about many topics, including technical troubleshooting. If you've uploaded VECTELUM OS documentation to the Knowledge Base, it can also help with NOMAD-specific questions.
 
 ### Check the documentation
 You're in the docs now. Use the menu to find specific topics.
 
 ### Join the community
-Get help from other NOMAD users on **[Discord](https://discord.com/invite/crosstalksolutions)**.
+Get help from other VECTELUM OS users on **[Discord](https://discord.com/invite/crosstalksolutions)**.
 
 ### Release Notes
 See what's changed in each version: **[Release Notes](/docs/release-notes)**
