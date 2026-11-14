@@ -2,7 +2,7 @@
 
 > Adapted from the upstream Project NOMAD documentation. Upstream screenshots, installation scripts, benchmarks and core updates may still refer to Project NOMAD. Do not install upstream core updates over this developer preview without review.
 
-This guide will help you get the most out of your VECTELUM OS server.
+This guide covers the in-app workflow after the backend has started. For installation from scratch, see the [first-time setup guide on GitHub](https://github.com/cyberzone51/vectelum-os/blob/main/GETTING-STARTED.md). Models, ZIM archives, maps and courses must be downloaded separately. The branded backend has been tested on Ubuntu 24.04 under WSL2; the OS and hardware recommendations below are inherited upstream guidance.
 
 ---
 
@@ -20,7 +20,7 @@ VECTELUM OS runs on Debian-based Linux.
 | **Also supported** | Ubuntu 24.04 LTS, Debian 12 |
 | **Community-supported** | Windows via WSL2, other Debian derivatives |
 
-Ubuntu 26.04 LTS is the version we test on and the one we recommend for new installs. If you are already running 24.04 LTS or Debian 12, there is no need to reinstall, both are still supported.
+Ubuntu 26.04 LTS is the upstream recommendation. The branded developer preview has been verified locally on Ubuntu 24.04 under WSL2; other environments have not been independently validated.
 
 Ubuntu Desktop is the friendlier choice if you are coming from Windows or macOS. Ubuntu Server works just as well if you are comfortable at the terminal, and VECTELUM OS does not need a desktop environment either way since everything is accessed through a browser.
 
@@ -47,7 +47,7 @@ A stable internet connection is required during installation only. After that, V
 
 ### A note on GPU drivers
 
-The installer sets up Docker and the NVIDIA Container Toolkit for you, but it does **not** install the GPU driver itself. You need that on the host beforehand.
+The upstream installer can configure Docker and the NVIDIA Container Toolkit, but it does **not** install the GPU driver itself. The VECTELUM preview has no standalone installer. Configure compatible drivers and GPU container support on the host before enabling GPU acceleration.
 
 On Ubuntu, the easiest way is to check **"Install third-party drivers for graphics and Wi-Fi hardware"** during setup. If you skipped that, or you added the GPU later, install the driver first and then use **Force Reinstall** on the AI Assistant in the [Supply Depot](/supply-depot) to pick it up.
 
@@ -117,7 +117,7 @@ The Education Platform provides complete educational courses that work offline.
 
 ![AI Chat interface](/docs/ai-chat.webp)
 
-VECTELUM OS includes a built-in AI chat interface powered by Ollama. It runs entirely on your server — no internet needed, no data sent anywhere.
+VECTELUM OS includes a built-in AI chat interface powered by Ollama. With a downloaded local model and a local endpoint, chat is designed to work offline. Remote or cloud endpoints may send data outside your device; this preview has not completed an independent privacy audit.
 
 **What can it do:**
 - Answer questions on any topic
@@ -135,7 +135,7 @@ VECTELUM OS includes a built-in AI chat interface powered by Ollama. It runs ent
 
 **Note:** The AI Assistant must be installed first. Enable it during Easy Setup or install it from the [Supply Depot](/supply-depot).
 
-**GPU Acceleration:** If your server has an NVIDIA GPU, VECTELUM OS's installer sets up GPU support for you (it installs the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) and configures Docker automatically). You only need the NVIDIA driver present on the host, which on Ubuntu you get by enabling "Install third-party drivers" during setup. With a GPU, AI responses are dramatically faster (10-20x improvement). If you add a GPU later, go to the [Supply Depot](/supply-depot) and **Force Reinstall** the AI Assistant to enable it.
+**Model setup:** Open [Settings → Models](/settings/models), choose a suitable chat model, click Install, and wait until it appears in Installed Models. Select it in AI Chat. For Knowledge Base retrieval, ensure Qdrant and a compatible embedding model are available. GPU acceleration depends on host drivers and container configuration; see the [NVIDIA Container Toolkit guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if applicable.
 
 ---
 
@@ -152,8 +152,8 @@ The Knowledge Base lets you upload documents so the AI can reference them when a
 **How to use it:**
 1. Go to **[Knowledge Base →](/knowledge-base)**
 2. Upload your documents (PDFs, text files, etc.)
-3. Documents are processed and indexed automatically
-4. Ask questions in AI Chat — the AI will reference your uploaded documents when relevant
+3. Review the auto-index policy, start indexing if needed, and wait for embedding to finish
+4. Enable Knowledge Base retrieval in AI Chat, select the relevant collection and ask questions. Verify the retrieved sources against the original documents
 5. Remove documents you no longer need — they'll be deleted from the index and local storage
 
 **Use cases:**
@@ -227,17 +227,11 @@ Test your hardware performance and see how your VECTELUM OS build stacks up agai
 
 ### Keeping Things Updated
 
-While you have internet, periodically check for updates:
+**Do not use the inherited core update or early-access controls on the branded preview.** Keep the upstream updater stopped; it can replace the VECTELUM image. Use the [fork maintenance instructions](https://github.com/cyberzone51/vectelum-os#development-and-maintenance).
 
-1. Go to **Settings → Check for Updates**
-2. If updates are available, click to install
-3. Wait for the update to complete (your server will restart)
+Review app and content updates separately, with backups and compatibility checks. An independent branded update channel is not yet released.
 
-Content updates (Wikipedia, maps, etc.) can be managed separately from software updates.
-
-**Automatic updates:** VECTELUM OS can also keep itself current without you having to check. Software, installed apps, and content can each be set to update automatically on an opt-in basis, with safety checks and a time window you control. See the **[Updates guide](/docs/updates)** for the full picture.
-
-**Early Access Channel:** Want the latest features before they hit stable? Enable the Early Access Channel from the Check for Updates page to receive release candidate builds. You can switch back to stable anytime.
+--- 
 
 ### Monitoring System Health
 
@@ -253,7 +247,7 @@ Check on your server anytime:
 
 ### Before Going Offline
 
-- **Update everything** — Run software and content updates
+- **Review updates** — Back up data and review content/app compatibility; do not run upstream core updates
 - **Download what you need** — Maps, references, educational content
 - **Test it** — Make sure features work while you still have internet to troubleshoot
 
@@ -277,7 +271,7 @@ Check storage usage in **Settings → System**.
 
 ## Next Steps
 
-You're ready to use VECTELUM OS Here are some things to try:
+After the required downloads and indexing are complete, here are some things to try:
 
 1. **Look something up** — Search for a topic in the Information Library
 2. **Learn something** — Start a Khan Academy course in the Education Platform
