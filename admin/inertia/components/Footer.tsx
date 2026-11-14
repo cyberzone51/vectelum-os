@@ -1,3 +1,4 @@
+// Modified for VECTELUM OS, 2026. Upstream license and notices retained.
 import { useState } from 'react'
 import { usePage } from '@inertiajs/react'
 import { UsePageProps } from '../../types/system'
@@ -13,7 +14,7 @@ export default function Footer() {
     <footer>
       <div className="flex items-center justify-center gap-3 border-t border-border-subtle py-4">
         <p className="text-sm/6 text-text-secondary">
-          Project NOMAD&trade; Command Center v{appVersion}
+          VECTELUM OS · v{appVersion} · Based on Project NOMAD
         </p>
         <span className="text-gray-300">|</span>
         <button

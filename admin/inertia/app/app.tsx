@@ -1,3 +1,4 @@
+// Modified for VECTELUM OS, 2026. Upstream license and notices retained.
 /// <reference path="../../adonisrc.ts" />
 /// <reference path="../../config/inertia.ts" />
 
@@ -14,7 +15,7 @@ import NotificationsProvider from '~/providers/NotificationProvider'
 import { ThemeProvider } from '~/providers/ThemeProvider'
 import { UsePageProps } from '../../types/system'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Project NOMAD'
+const appName = import.meta.env.VITE_APP_NAME || 'VECTELUM OS'
 const queryClient = new QueryClient()
 
 // Patch the global crypto object for non-HTTPS/localhost contexts

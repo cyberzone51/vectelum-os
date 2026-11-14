@@ -1,3 +1,4 @@
+// Modified for VECTELUM OS, 2026. Upstream license and notices retained.
 import { useState } from 'react'
 import Footer from '~/components/Footer'
 import ChatButton from '~/components/chat/ChatButton'
@@ -46,8 +47,8 @@ export default function AppLayout({
         onClick={() => router.visit('/home')}
       >
         <img
-          src="/nomad-primary.svg"
-          alt="Project NOMAD Logo"
+          src="/vectelum-os.svg"
+          alt="VECTELUM OS Logo"
           className={compact ? 'h-12 w-12 object-contain' : 'h-40 w-40 object-contain'}
         />
         <h1
@@ -56,7 +57,7 @@ export default function AppLayout({
             compact ? 'text-2xl' : 'text-5xl'
           )}
         >
-          Command Center
+          VECTELUM OS
         </h1>
       </div>
       <hr className={
