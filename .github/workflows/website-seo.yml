@@ -1,0 +1,57 @@
+name: Website SEO monitor
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 6 * * 1'
+permissions:
+  contents: read
+concurrency:
+  group: vectelum-website-seo
+  cancel-in-progress: true
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check published sitemap
+        run: |
+          curl --fail --silent --show-error --location https://vectelum.netlify.app/sitemap.xml -o sitemap.xml
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls = ET.parse('sitemap.xml').findall('s:url/s:loc', ns)
+          assert len(urls) >= 13, 'Expected the SEO website to be deployed'
+          assert all(u.text.startswith('https://vectelum.netlify.app/') for u in urls)
+          print('Sitemap URLs:', len(urls))
+          PY
+      - name: Check published page URLs with Lychee
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: --no-progress --max-retries 2 sitemap.xml
+          fail: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Lighthouse CI
+        run: |
+          npm install --global @lhci/cli@0.16.x
+          lhci collect --url=https://vectelum.netlify.app/ --url=https://vectelum.netlify.app/basecamp.html --url=https://vectelum.netlify.app/resources.html --numberOfRuns=1
+          python - <<'PY'
+          import glob, json
+          reports = glob.glob('.lighthouseci/lhr-*.json')
+          assert reports, 'No Lighthouse reports generated'
+          for path in reports:
+              report = json.load(open(path))
+              score = report['categories']['seo']['score']
+              print(report['finalDisplayedUrl'], 'SEO:', score)
+              assert score is not None and score >= 0.9, 'SEO score below 90'
+          PY
+      - name: Save reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-seo-reports
+          path: |
+            .lighthouseci/
+            lychee/out.md
+          include-hidden-files: true
