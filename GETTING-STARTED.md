@@ -42,7 +42,7 @@ docker build \
 git checkout main
 ```
 
-This pins the tested source revision. No official VECTELUM registry image or one-click installer is published yet. Building requires downloading dependencies and may take considerable time.
+This pins the tested source revision. The [VECTELUM Local desktop setup scripts](install/VECTELUM-LOCAL.md) can build the pinned revision and register a one-click launcher. No official VECTELUM registry image is published yet. Building requires downloading dependencies and may take considerable time.
 
 ## 3. Start the backend
 
@@ -79,7 +79,7 @@ The expected management image is `vectelum-os:56350b3`; wait until it is healthy
 
 Open [http://127.0.0.1:8080/home](http://127.0.0.1:8080/home) in a browser on the host computer. You should see **Command Center – VECTELUM OS**.
 
-If using the local landing preview, **Launch VECTELUM OS** opens the local system when its host-side launcher is configured and running. A public GitHub or landing page cannot install or start Docker on an arbitrary visitor's computer. You can always use the local Command Center URL after starting your backend.
+After one-time [VECTELUM Local setup](install/VECTELUM-LOCAL.md), **Launch VECTELUM OS** on the public website opens the installed desktop launcher using the vectelum://launch URI. It starts the existing local containers and opens the Command Center. New users must install the prerequisites and software first; the browser may ask for permission to open the local app. The launcher does not require a cloud backend or the local landing preview.
 
 The [standalone launcher](vectelum-launcher/) is optional; it lists 22 shortcuts and does not install services. The actual Command Center is the recommended setup interface.
 

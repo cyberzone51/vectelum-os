@@ -22,6 +22,8 @@ It is an independent derivative of [Project NOMAD](https://github.com/Crosstalk-
 
 **New to VECTELUM OS? [Start here: Getting Started Guide →](GETTING-STARTED.md)** — install and launch the backend, download AI models, configure the Knowledge Base, and prepare offline content.
 
+**[VECTELUM Local desktop setup and one-click launcher](install/VECTELUM-LOCAL.md)** — Windows/WSL2 and Linux developer preview.
+
 ## Contents
 
 - [Getting started — first-time setup](GETTING-STARTED.md)
