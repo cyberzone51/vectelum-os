@@ -27,7 +27,13 @@ docker compose version
 df -h
 ```
 
-## 2. Build VECTELUM OS
+## 2. Install the Adaptive AI preview
+
+For new installations, use [VECTELUM Local Setup v0.3.0](install/VECTELUM-LOCAL.md). It builds the pinned Adaptive AI source revision 83b41cd and registers the launcher. The current fresh-install path is a developer preview, not a validated production release. Existing deployments are not automatically upgraded.
+
+The following manual instructions describe the previously tested baseline deployment; use the installer above for the new preview.
+
+### Manual baseline build
 
 If you already have a healthy VECTELUM deployment, skip to step 4.
 

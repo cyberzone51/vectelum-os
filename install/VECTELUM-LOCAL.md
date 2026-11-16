@@ -34,7 +34,11 @@ bash install-vectelum-linux.sh
 
 Or run `python3 vectelum-local.py setup` (existing) or `python3 vectelum-local.py setup --fresh` (new).
 
-The fresh path builds the tested source revision 56350b3, creates separate local storage under ~/.local/share/vectelum/backend, generates unique credentials, and starts MySQL, Redis and the VECTELUM admin container. Only the core is installed initially. An existing NOMAD deployment or previous setup directory is never overwritten. If a fresh setup fails partway, review the logs and existing files before attempting recovery. Do not delete storage.
+The fresh path builds the pinned Adaptive AI preview revision 83b41cd (image vectelum-os:83b41cd, version 1.35.1-vectelum.2), creates separate local storage under ~/.local/share/vectelum/backend, generates unique credentials, and starts MySQL, Redis and the VECTELUM admin container. Only the core is installed initially. An existing NOMAD deployment or previous setup directory is never overwritten. If a fresh setup fails partway, review the logs and existing files before attempting recovery. Do not delete storage.
+
+## Adaptive AI release
+
+Setup v0.3.0 builds the Adaptive AI preview for new installations. It selects hardware-aware limits and recommends instruction/chat models rather than explicit base/text models. See [Adaptive AI](../admin/docs/adaptive-ai.md). The existing-backend option accepts both the previous and current image tags, but does not upgrade an existing image; preserve your storage and follow the migration guide for upgrades. The old image alone does not contain Adaptive AI. The full fresh Docker build on a clean machine has not yet been validated.
 
 ## After setup
 

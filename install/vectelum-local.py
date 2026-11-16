@@ -2,8 +2,9 @@
 """VECTELUM Local: installer and fixed-action URI launcher."""
 import argparse, json, os, secrets, shutil, subprocess, sys, time, urllib.request, webbrowser
 from pathlib import Path
-IMAGE = "vectelum-os:56350b3"
-REVISION = "56350b357098e06b44b9309c305ebb5971c06885"
+IMAGE = "vectelum-os:83b41cd"
+REVISION = "83b41cdbfc9274c2dc9864652bdbce9387dd9feb"
+COMPATIBLE_IMAGES = {IMAGE, "vectelum-os:56350b3"}
 REPO = "https://github.com/cyberzone51/vectelum-os.git"
 URI = "vectelum://launch"
 URL = "http://127.0.0.1:8080/home"
@@ -38,7 +39,7 @@ def healthy():
 def wait_ready():
     for _ in range(180):
         a = inspect("nomad_admin")
-        if a and a["Config"]["Image"] == IMAGE and a["State"].get("Health",{}).get("Status") == "healthy" and healthy():
+        if a and a["Config"]["Image"] in COMPATIBLE_IMAGES and a["State"].get("Health",{}).get("Status") == "healthy" and healthy():
             return
         time.sleep(2)
     raise RuntimeError("Backend did not become healthy. Inspect Docker logs; no data was removed.")
@@ -46,7 +47,7 @@ def wait_ready():
 def start_backend():
     check_docker()
     a = inspect("nomad_admin")
-    if not a or a["Config"]["Image"] != IMAGE:
+    if not a or a["Config"]["Image"] not in COMPATIBLE_IMAGES:
         raise RuntimeError("Compatible VECTELUM backend not found. Use setup --fresh on a new host or follow migration guide.")
     u = inspect("nomad_updater")
     if u and u["State"]["Running"]:
@@ -68,7 +69,7 @@ def fresh_backend():
     src = root/"source"
     run(["git","clone",REPO,str(src)])
     run(["git","-C",str(src),"checkout","--detach",REVISION])
-    docker("build","--build-arg","VERSION=1.35.1-vectelum.1","--build-arg","VCS_REF=56350b3","-t",IMAGE,str(src))
+    docker("build","--build-arg","VERSION=1.35.1-vectelum.2","--build-arg",f"VCS_REF={REVISION}","-t",IMAGE,str(src))
     for name in ("storage","mysql","redis"):
         (root/name).mkdir(mode=0o700)
     db, rootpass, key = [secrets.token_hex(32) for _ in range(3)]

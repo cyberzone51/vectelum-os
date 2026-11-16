@@ -49,12 +49,13 @@ It is an independent derivative of [Project NOMAD](https://github.com/Crosstalk-
 |---|---|
 | VECTELUM branding, Command Center and launcher | Implemented in this fork |
 | Local Docker build | Built and launched successfully on Ubuntu 24.04 under WSL2 |
+| Adaptive AI preview (fresh setup) | `vectelum-os:83b41cd` — [Setup v0.3.0](install/VECTELUM-LOCAL.md) |
 | Tested image | `vectelum-os:56350b3` |
 | Build version | `1.35.1-vectelum.1` |
 | Management API | HTTP 200 at `/api/health` in the local test deployment |
 | Database and Redis | Healthy in the local test deployment |
 | 22 launcher entries | Available as shortcuts; individual app workflows require configuration and testing |
-| Independent installer, image registry and update channel | Not yet released |
+| Local setup | Windows EXE and Linux scripts available as developer preview; no validated fresh-install release or image registry yet |
 | Six hardware designs | Concepts only; no validated custom hardware |
 | Cross-device networking and security hardening | Planned; not validated |
 

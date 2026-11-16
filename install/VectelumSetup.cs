@@ -8,12 +8,11 @@ using Microsoft.Win32;
 
 [assembly: AssemblyTitle("VECTELUM Local Setup")]
 [assembly: AssemblyProduct("VECTELUM Local")]
-[assembly: AssemblyVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.3.0.0")]
 
 static class Setup {
     const string Uri = "vectelum://launch";
     const string Distro = "Ubuntu-24.04";
-    const string Image = "vectelum-os:56350b3";
     const string HomeUrl = "http://127.0.0.1:8080/home";
     const string Guide = "https://vectelum.netlify.app/install-local";
     static readonly string Wsl = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe");
@@ -133,7 +132,7 @@ static class Setup {
                 }
             }
             if (args.Length != 0) return 2;
-            Console.WriteLine("VECTELUM Local | Windows setup | Developer preview");
+            Console.WriteLine("VECTELUM Local | Windows setup v0.3.0 | Adaptive AI preview");
             Console.WriteLine("The first installation downloads packages and builds the local backend.");
             Console.WriteLine("Requires WSL2, Ubuntu 24.04 and at least 30 GiB free; 50 GB recommended plus content.");
             if (!HasDistro()) {
