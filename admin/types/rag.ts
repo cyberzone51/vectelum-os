@@ -101,6 +101,8 @@ export type RetrievedChunk = {
  */
 export type PipelineOptions = {
   topK?: number
+  /** Local adaptive profile ceiling, applied before prompt budgeting. */
+  contextCap?: number
   scoreThreshold?: number
   collection?: string
   /** Skip the history-aware rewrite (which is an LLM call, and therefore

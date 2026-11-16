@@ -194,7 +194,8 @@ export class RagPipelineService {
     trace.contextLimits = limits
     const candidateDocs = relevantDocs.slice(0, limits.maxResults)
 
-    const contextWindow = await this.contextWindowService.windowFor(model)
+    const resolvedWindow = await this.contextWindowService.windowFor(model)
+    const contextWindow = Math.min(resolvedWindow, opts.contextCap ?? resolvedWindow)
     const ratio = await this.tokenCalibration.ratioFor(model)
 
     const plan = planPrompt({

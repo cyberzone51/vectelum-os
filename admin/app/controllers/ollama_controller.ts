@@ -1,4 +1,6 @@
 import { ChatService } from '#services/chat_service'
+import { SystemService } from '#services/system_service'
+import { getLocalAiProfile, oversizedModel, recommendSmallModels, beginChatPriority, type AiProfile } from '../utils/adaptive_ai.js'
 import { DockerService } from '#services/docker_service'
 import { OllamaService, type NomadChatUsage } from '#services/ollama_service'
 import { TokenCalibrationService } from '#services/token_calibration_service'
@@ -148,7 +150,22 @@ export default class OllamaController {
     }
 
     let unknownVisionUpstreamRejected = false
+    let releasePriority: (() => Promise<void>) | undefined
+    let profile: AiProfile | undefined
     try {
+      // Never apply the local hardware limits to an independently hosted model.
+      const remoteUrl = await KVStore.getValue('ai.remoteOllamaUrl')
+      if (!remoteUrl && typeof this.ollamaService.getModels === 'function') {
+        profile = await getLocalAiProfile(async () => (await new SystemService(this.dockerService).getOllamaInferenceComputeFromLogs())?.vramMiB ?? 0)
+        const models = profile.tier === 'low' ? await this.ollamaService.getModels() : []
+        const selected = models.find(m => m.name === reqData.model)
+        if (oversizedModel(profile, selected?.size)) {
+          const alternatives = recommendSmallModels(models, profile)
+          throw new Error(`VECTELUM_RESOURCE_LIMIT: ${reqData.model} is too large for this computer's Low Resource profile. ${alternatives.length ? 'Select a smaller installed model: ' + alternatives.join(', ') : 'Install a smaller quantized 1–3B chat model.'}`)
+        }
+        if (profile.tier === 'low') releasePriority = await beginChatPriority()
+        logger.info(`[AdaptiveAI] ${profile.tier}: ${reqData.model}; context cap ${profile.contextCap}, output cap ${profile.outputCap}`)
+      }
       // Everything from system-prompt assembly through query rewriting,
       // retrieval, context trimming and the num_ctx decision lives in
       // RagPipelineService so the eval harness exercises this exact code path.
@@ -159,10 +176,15 @@ export default class OllamaController {
       const trace = await this.ragPipelineService.buildPrompt(reqData.messages, reqData.model, {
         collection: collectionFilter ?? undefined,
         skipRetrieval: !ragEnabled,
+        ...(profile ? {
+          topK: profile.topK,
+          contextCap: profile.contextCap,
+          ...(profile.skipAuxiliary ? { skipQueryRewrite: true, relevanceCheckModel: null } : {}),
+        } : {}),
       })
       reqData.messages = trace.messages
       const numCtx = trace.numCtx
-      const numPredict = trace.numPredict
+      const numPredict = profile && trace.numPredict !== undefined ? Math.min(trace.numPredict, profile.outputCap) : trace.numPredict
       // Provenance for the answer about to be generated (#1179). Built from
       // trace.injected -- what the model actually read -- and surfaced under the
       // answer as "Sources". Empty whenever retrieval was skipped or declined,
@@ -171,7 +193,7 @@ export default class OllamaController {
       // Keeping the model resident is what makes the KV cache worth building:
       // Ollama's default evicts after 5 minutes, which is well inside the time a
       // user spends reading an answer and typing the next question.
-      const keepAlive = (await KVStore.getValue('ai.keepAlive')) || DEFAULT_KEEP_ALIVE
+      const keepAlive = profile?.tier === 'low' ? '2m' : ((await KVStore.getValue('ai.keepAlive')) || DEFAULT_KEEP_ALIVE)
 
       // Check if the model supports "thinking" capability for enhanced response generation.
       // Thinking is only enabled when the model supports it AND the user wants it: the explicit
@@ -186,7 +208,7 @@ export default class OllamaController {
         thinkingEnabled = reqData.think ?? ((await KVStore.getValue('ai.autoThinking')) ?? false)
       }
       const think: boolean | 'medium' =
-        thinkingEnabled ? (reqData.model.startsWith('gpt-oss') ? 'medium' : true) : false
+        thinkingEnabled && !(profile?.tier === 'low' && reqData.think !== true) ? (reqData.model.startsWith('gpt-oss') ? 'medium' : true) : false
 
       // Sampler settings for this turn. Chat used to send none of these and
       // inherit the backend's defaults, which on a heavily quantized small model
@@ -275,7 +297,7 @@ export default class OllamaController {
         if (sessionId && fullContent) {
           await this.chatService.addMessage(sessionId, 'assistant', fullContent, sources)
           const messageCount = await this.chatService.getMessageCount(sessionId)
-          if (messageCount <= 2 && userContent) {
+          if (messageCount <= 2 && userContent && !profile?.skipAuxiliary) {
             this.chatService.generateTitle(sessionId, userContent, fullContent, reqData.model).catch((err) => {
               logger.error(`[OllamaController] Title generation failed: ${err instanceof Error ? err.message : err}`)
             })
@@ -315,7 +337,7 @@ export default class OllamaController {
       if (sessionId && result?.message?.content) {
         await this.chatService.addMessage(sessionId, 'assistant', result.message.content, sources)
         const messageCount = await this.chatService.getMessageCount(sessionId)
-        if (messageCount <= 2 && userContent) {
+        if (messageCount <= 2 && userContent && !profile?.skipAuxiliary) {
           this.chatService.generateTitle(sessionId, userContent, result.message.content, reqData.model).catch((err) => {
             logger.error(`[OllamaController] Title generation failed: ${err instanceof Error ? err.message : err}`)
           })
@@ -324,14 +346,18 @@ export default class OllamaController {
 
       return { ...result, sources }
     } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error)
+      logger.warn(`[AdaptiveAI] Chat failed for ${reqData.model}: ${detail}`)
+      const resourceMessage = detail.startsWith('VECTELUM_RESOURCE_LIMIT: ') ? detail.slice('VECTELUM_RESOURCE_LIMIT: '.length) : undefined
       if (reqData.stream) {
+        if (response.response.writableEnded || response.response.destroyed) return
         const streamError =
           unknownVisionUpstreamRejected
             ? {
                 error: true,
                 message: unknownVisionCompatibilityMessage(reqData.model),
               }
-            : { error: true }
+            : { error: true, message: resourceMessage ?? (profile?.tier === 'low' ? 'Local AI could not complete the request. Try a smaller model or disable Knowledge Base retrieval for this question.' : 'AI backend could not complete the request. Check the model and server logs.') }
         response.response.write(`data: ${JSON.stringify(streamError)}\n\n`)
         response.response.end()
         return
@@ -341,7 +367,10 @@ export default class OllamaController {
           message: unknownVisionCompatibilityMessage(reqData.model),
         })
       }
+      if (resourceMessage) return response.status(422).send({ message: resourceMessage })
       throw error
+    } finally {
+      await releasePriority?.()
     }
   }
 

@@ -1,4 +1,6 @@
 import { QdrantClient } from '@qdrant/js-client-rest'
+import { getLocalAiProfile, yieldToChat } from '../utils/adaptive_ai.js'
+import { setTimeout as delay } from 'node:timers/promises'
 import { DockerService } from './docker_service.js'
 import { inject } from '@adonisjs/core'
 import logger from '@adonisjs/core/services/logger'
@@ -426,10 +428,19 @@ export class RagService {
 
       // Batch embed chunks for performance
       const embeddings: number[][] = []
-      const batchSize = RagService.EMBEDDING_BATCH_SIZE
+      const remoteUrl = await KVStore.getValue('ai.remoteOllamaUrl')
+      const adaptive = remoteUrl ? undefined : await getLocalAiProfile(async () => {
+        const { SystemService } = await import('./system_service.js')
+        return (await new SystemService(this.dockerService).getOllamaInferenceComputeFromLogs())?.vramMiB ?? 0
+      })
+      const batchSize = Math.min(RagService.EMBEDDING_BATCH_SIZE, adaptive?.batchSize ?? RagService.EMBEDDING_BATCH_SIZE)
       const totalBatches = Math.ceil(prefixedChunks.length / batchSize)
 
       for (let batchIdx = 0; batchIdx < totalBatches; batchIdx++) {
+        if (adaptive?.tier === 'low') {
+          await yieldToChat()
+          await delay(250)
+        }
         const batchStart = batchIdx * batchSize
         const batch = prefixedChunks.slice(batchStart, batchStart + batchSize)
 
