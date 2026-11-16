@@ -30,8 +30,12 @@ export function oversizedModel(profile: AiProfile, size: number | undefined): bo
   return profile.tier === 'low' && !!size && size > profile.modelBudget
 }
 export function recommendSmallModels(models: { name: string; size?: number }[], profile: AiProfile): string[] {
-  return models.filter(m => !!m.name && !/embed|rerank|vision|llava/i.test(m.name) && !!m.size && m.size <= profile.modelBudget)
-    .sort((a, b) => (a.size ?? 0) - (b.size ?? 0)).slice(0, 3).map(m => m.name)
+  // Explicit base/text-completion tags are not reliable dialogue models.
+  // Prefer known chat/instruct variants; put reasoning-heavy models last on low hardware.
+  const rank = (name: string) => /deepseek-r1|reasoning|thinking/i.test(name) ? 2 :
+    /instruct|chat|qwen[23]|llama3\.2|gemma[23]/i.test(name) ? 0 : 1
+  return models.filter(m => !!m.name && !/embed|rerank|vision|llava|(?:^|[:_-])(?:text|base)(?:$|[:_-])/i.test(m.name) && !!m.size && m.size <= profile.modelBudget)
+    .sort((a, b) => rank(a.name) - rank(b.name) || (a.size ?? 0) - (b.size ?? 0)).slice(0, 3).map(m => m.name)
 }
 export function localAiProfile(vramMiB = 0): AiProfile {
   return selectAiProfile(effectiveRam(), os.availableParallelism(), vramMiB * 1024 ** 2)

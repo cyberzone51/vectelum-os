@@ -24,8 +24,10 @@ test('recommend installed fitting chat models only', () => {
     { name: 'nomic-embed-text', size: 0.3 * GIB },
     { name: 'qwen3:1.7b', size: 1.4 * GIB },
     { name: 'llama3.2:1b', size: 0.6 * GIB },
+    { name: 'llama3.2:1b-text-q2_K', size: 0.5 * GIB },
+    { name: 'deepseek-r1:1.5b', size: 1.1 * GIB },
     { name: 'unknown' }
-  ], p), ['llama3.2:1b', 'qwen3:1.7b'])
+  ], p), ['llama3.2:1b', 'qwen3:1.7b', 'deepseek-r1:1.5b'])
 })
 test('chat priority temporarily delays document batches and releases', async () => {
   const release = await beginChatPriority()
