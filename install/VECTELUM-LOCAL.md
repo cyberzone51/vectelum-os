@@ -2,7 +2,11 @@
 
 The public **Launch VECTELUM OS** button uses the local URI `vectelum://launch`. It does not connect to a cloud demo. After one-time setup, it starts the installed core containers and opens the local Command Center. The browser may show its normal confirmation dialog before opening a desktop application.
 
-## Before installing
+## Windows EXE (recommended)
+
+Download [VECTELUM-Setup.exe](https://vectelum.netlify.app/downloads/VECTELUM-Setup.exe) and run it. No Windows Python or Git is required. If Ubuntu 24.04 WSL2 is missing, setup offers Microsoft WSL installation with administrator approval; reboot and first-run Ubuntu setup may be necessary. With explicit consent it can install missing Ubuntu Docker, Compose, Git and Python packages. Existing Docker engines are not replaced. Check free space on the physical WSL drive. The unsigned EXE is a developer preview; inspect [source](VectelumSetup.cs) and [SHA-256](https://vectelum.netlify.app/downloads/VECTELUM-Setup.exe.sha256). To compile it from source on Windows, run build-vectelum-windows.cmd. Clean-system provisioning is not yet validated.
+
+## Before installing (script/ZIP alternative)
 
 - Windows: Windows 10/11 with WSL2 and Ubuntu 24.04, Python 3.10+ on Windows, Git and Python 3 inside Ubuntu, native Docker Engine with Compose v2 in Ubuntu. Follow the [WSL2 guide](https://www.projectnomad.us/install/wsl2) and [Docker Engine instructions](https://docs.docker.com/engine/install/ubuntu/). Do not install another daemon if you already have one. Ensure the WSL Docker service starts normally; the launcher does not change system services.
 - Linux: x86-64 Ubuntu 24.04 (target), Python 3.10+, Git, Docker Engine + Compose v2, xdg-utils and a graphical desktop. The user must already have access to the local Docker socket. Docker access is equivalent to powerful host privileges.
